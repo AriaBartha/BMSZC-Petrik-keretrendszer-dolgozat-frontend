@@ -4,8 +4,8 @@ function KeyboardCard(props) {
     const {keyboard} = props;
     return (
         <div className="col">
-            <div className="card h-100">
-                <div className="card-header">
+            <div className="card border-dark h-100">
+                <div className="card-header text-bg-secondary">
                     {keyboard.name}
                 </div>
                 <div className="card-body">

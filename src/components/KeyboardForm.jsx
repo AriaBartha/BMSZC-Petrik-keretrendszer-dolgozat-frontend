@@ -34,25 +34,25 @@ function KeyboardForm(props) {
     return ( <form onSubmit={event => {event.preventDefault(); createKeyboard();}}> 
         <div className="mb-3">
             <label htmlFor="name" className="form-label">Name:</label>
-            <input type="text" className="form-control" id="name" placeholder="Name" ref={nameRef}/>
+            <input type="text" className="form-control border-dark" id="name" placeholder="Name" ref={nameRef}/>
         </div>
         <div className="mb-3">
             <label htmlFor="type" className="form-label">Type:</label>
-            <input type="text" className="form-control" id="type" placeholder="Type" ref={typeRef}/>
+            <input type="text" className="form-control border-dark" id="type" placeholder="Type" ref={typeRef}/>
         </div>
         <div className="mb-3">
             <label htmlFor="layout" className="form-label">Layout:</label>
-            <input type="text" className="form-control" id="layout" placeholder="Layout" ref={layoutRef}/>
+            <input type="text" className="form-control border-dark" id="layout" placeholder="Layout" ref={layoutRef}/>
         </div>
         <div className="mb-3">
             <label htmlFor="width" className="form-label">Width (cm):</label>
-            <input type="number" placeholder="20.0" step="0.01" min="20" max="50" className="form-control" id="width" ref={widthRef}/>
+            <input type="number" placeholder="20.0" step="0.01" min="20" max="50" className="form-control border-dark" id="width" ref={widthRef}/>
         </div>
         <div className="mb-3">
             <label htmlFor="wireless" className="form-label">Wireless (Only accept: yes/no):</label>
-            <input type="text" className="form-control" id="wireless" placeholder="yes/no" ref={wirelessRef}/>
+            <input type="text" className="form-control border-dark" id="wireless" placeholder="yes/no" ref={wirelessRef}/>
         </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-success">Submit</button>
     </form> );
 }
 
