@@ -4,6 +4,7 @@ import './App.css';
 import KeyboardCard from './components/KeyboardCard';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import KeyboardForm from './components/KeyboardForm';
 
 function App() {
   const backend_url = "http://localhost:8000/api/keyboard";
@@ -19,10 +20,37 @@ function App() {
     setKeyboards(data);
   }
 
+  const createKeyboard = async (keyboard) => {
+    const response = await fetch(backend_url, {
+      method: "POST",
+      body: JSON.stringify(keyboard),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      }
+    });
+    const data = await response.json();
+    if (response.ok) {
+      readKeyboards();
+      return true;
+    } else {
+      alert(data.message);
+      return false;
+    }
+  }
+
   return ( <main className='container'>
-      <div className='row row-cols-lg-2 row-cols-1'>
-        {keyboards.map(keyboard => <KeyboardCard keyboard={keyboard} key={keyboard.id}/>)}
-      </div> 
+      <section>
+          <h2>Add new keyboard</h2>
+          <KeyboardForm onSubmit={createKeyboard}/>
+      </section>
+      <section>
+          <h2>List of keyboards</h2>
+          <div className='row row-cols-lg-2 row-cols-1 gy-3'>
+            {keyboards.map(keyboard => <KeyboardCard keyboard={keyboard} key={keyboard.id}/>)}
+          </div> 
+      </section>
+      
     </main> );
 }
 

@@ -4,7 +4,7 @@ function KeyboardCard(props) {
     const {keyboard} = props;
     return (
         <div className="col">
-            <div className="card">
+            <div className="card h-100">
                 <div className="card-header">
                     {keyboard.name}
                 </div>
