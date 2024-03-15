@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 function KeyboardCard(props) {
-    const {keyboard} = props;
+    const {keyboard, updateClick, deleteClick} = props;
     return (
         <div className="col">
             <div className="card border-dark h-100">
@@ -29,6 +29,11 @@ function KeyboardCard(props) {
                             </tr>
                         </tbody>
                     </table>
+                    <div className="d-grid gap-1">
+                            <button className="btn btn-warning" onClick={() => {updateClick(keyboard.id)}}>Update</button>
+                            <button className="btn btn-danger" onClick={() => {deleteClick(keyboard.id)}}>Delete</button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -36,7 +41,9 @@ function KeyboardCard(props) {
 }
 
 KeyboardCard.propTypes = {
-    keyboard: PropTypes.object.isRequired
+    keyboard: PropTypes.object.isRequired,
+    updateClick: PropTypes.func.isRequired,
+    deleteClick: PropTypes.func.isRequired
 }
 
 export default KeyboardCard;
