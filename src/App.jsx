@@ -29,6 +29,7 @@ function App() {
         Accept: "application/json"
       }
     });
+
     const data = await response.json();
     if (response.ok) {
       readKeyboards();
@@ -39,6 +40,25 @@ function App() {
     }
   }
 
+  const deleteKeyboard = async (id) => {
+      const response = await fetch(`${backend_url}/${id}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json"
+        }
+      });
+      if (response.ok){
+        readKeyboards();
+      } else {
+        const data = await response.json();
+        alert(data.message);
+      }
+  }
+
+  const loadUpdateForm = async (id) => {
+      return id;
+  }
+
   return ( <main className='container'>
       <section>
           <h2>Add new keyboard</h2>
@@ -47,7 +67,7 @@ function App() {
       <section>
           <h2>List of keyboards</h2>
           <div className='row row-cols-lg-2 row-cols-1 gy-3'>
-            {keyboards.map(keyboard => <KeyboardCard keyboard={keyboard} key={keyboard.id}/>)}
+            {keyboards.map(keyboard => <KeyboardCard keyboard={keyboard} key={keyboard.id} updateClick={loadUpdateForm} deleteClick={deleteKeyboard}/>)}
           </div> 
       </section>
       
