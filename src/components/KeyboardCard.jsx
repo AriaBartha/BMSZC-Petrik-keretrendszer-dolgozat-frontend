@@ -5,7 +5,7 @@ function KeyboardCard(props) {
     return (
         <div className="col">
             <div className="card border-dark h-100">
-                <div className="card-header text-bg-secondary">
+                <div className="card-header text-bg-dark">
                     {keyboard.name}
                 </div>
                 <div className="card-body">
@@ -30,7 +30,7 @@ function KeyboardCard(props) {
                         </tbody>
                     </table>
                     <div className="d-grid gap-1">
-                            <button className="btn btn-warning" onClick={() => {updateClick(keyboard.id)}}>Update</button>
+                            <button className="btn btn-info" onClick={() => {updateClick(keyboard.id)}}>Update</button>
                             <button className="btn btn-danger" onClick={() => {deleteClick(keyboard.id)}}>Delete</button>
                     </div>
                     

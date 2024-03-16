@@ -9,6 +9,8 @@ import KeyboardForm from './components/KeyboardForm';
 function App() {
   const backend_url = "http://localhost:8000/api/keyboard";
   const [keyboards, setKeyboards] = useState([]);
+  const [updateId, setUpdateId] = useState(0);
+  const [updateKeyboardData, setUpdateKeyboardData] = useState(null);
 
   useEffect(() => {
       readKeyboards();
@@ -56,13 +58,68 @@ function App() {
   }
 
   const loadUpdateForm = async (id) => {
-      return id;
+      setUpdateId(id);
   }
+
+  const readOneKeyboard = async () => {
+    const response = await fetch(`${backend_url}/${updateId}`, {
+      headers: {
+        Accept: "application/json"
+      }
+    });
+    const data = await response.json();
+    if (response.ok){
+      setUpdateKeyboardData(data);
+    }else{
+      setUpdateKeyboardData(null);
+      alert(data.message);
+    }
+  }
+
+  const updateKeyboard = async (keyboard) => {
+    const response = await fetch(`${backend_url}/${updateId}`, {
+      method: "PATCH",
+      body: JSON.stringify(keyboard),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    });
+    const data = await response.json();
+    if (response.ok){
+      readKeyboards();
+      setUpdateId(0);
+      return true;
+    }else{
+      alert(data.message);
+      return false;
+    }
+  }
+
+  useEffect(() => {
+      if (updateId == 0){
+        setUpdateKeyboardData(null);
+      }
+      else {
+        readOneKeyboard();
+      }
+  }, [updateId]);
 
   return ( <main className='container'>
       <section>
+          {
+          updateKeyboardData == null ?
+          <>
           <h2>Add new keyboard</h2>
           <KeyboardForm onSubmit={createKeyboard}/>
+          </>
+          :
+          <>
+            <h2>Update the data of {updateKeyboardData.name}</h2>
+            <KeyboardForm onSubmit={updateKeyboard} buttonText={"Update"} keyboard={updateKeyboardData}/>
+          </>
+          }
+          
       </section>
       <section>
           <h2>List of keyboards</h2>

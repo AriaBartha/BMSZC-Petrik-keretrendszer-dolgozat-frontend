@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 function KeyboardForm(props) {
@@ -7,7 +7,7 @@ function KeyboardForm(props) {
     const layoutRef = useRef(null);
     const widthRef = useRef(null);
     const wirelessRef = useRef(null);
-    const {onSubmit} = props;
+    const {onSubmit, buttonText, keyboard} = props;
 
     const createKeyboard = async () => {
         const keyboard = {
@@ -31,6 +31,16 @@ function KeyboardForm(props) {
              wirelessRef.current.value = "";
     }
 
+    useEffect(() => {
+      if(keyboard){
+             nameRef.current.value = keyboard.name;
+             typeRef.current.value = keyboard.type;
+             layoutRef.current.value = keyboard.layout;
+             widthRef.current.value = keyboard.width;
+             wirelessRef.current.value = keyboard.wireless;
+      }  
+    }, [keyboard]);
+
     return ( <form onSubmit={event => {event.preventDefault(); createKeyboard();}}> 
         <div className="mb-3">
             <label htmlFor="name" className="form-label">Name:</label>
@@ -52,12 +62,18 @@ function KeyboardForm(props) {
             <label htmlFor="wireless" className="form-label">Wireless (Only accept: yes/no):</label>
             <input type="text" className="form-control border-dark" id="wireless" placeholder="yes/no" ref={wirelessRef}/>
         </div>
-        <button type="submit" className="btn btn-success">Submit</button>
+        <button type="submit" className="btn btn-success">{buttonText}</button>
     </form> );
 }
 
 KeyboardForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    buttonText: PropTypes.string,
+    keyboard: PropTypes.object
+}
+KeyboardForm.defaultProps = {
+    buttonText: "Submit",
+    keyboard: null
 }
 
 export default KeyboardForm;
